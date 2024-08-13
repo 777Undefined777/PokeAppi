@@ -9,6 +9,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
+<<<<<<< HEAD
         tools:layout_editor_absoluteX="162dp"
         tools:layout_editor_absoluteY="98dp" />
+=======
+        tools:layout_editor_absoluteX="185dp"
+        tools:layout_editor_absoluteY="125dp" />
+
+    <ImageView
+        android:id="@+id/pokemon_image"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        tools:layout_editor_absoluteX="162dp"
+        tools:layout_editor_absoluteY="10dp" />
+>>>>>>> 604e6cf (TRaida de imagenes con glide)
 </androidx.constraintlayout.widget.ConstraintLayout>
