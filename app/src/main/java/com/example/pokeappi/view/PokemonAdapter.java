@@ -1,5 +1,6 @@
 package com.example.pokeappi.view;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,7 +39,21 @@ public class PokemonAdapter extends RecyclerView.Adapter<PokemonAdapter.PokemonV
         Glide.with(holder.itemView.getContext())
                 .load(pokemon.getImageUrl())
                 .into(holder.pokemonImage);
+
+        // Configurar el clic en el ítem
+        holder.itemView.setOnClickListener(v -> {
+            // Crear un Intent para abrir DetailsPokeActivity
+            Intent intent = new Intent(holder.itemView.getContext(), DetailsPokeActivity.class);
+
+            // Puedes pasar datos adicionales sobre el Pokémon seleccionado
+            intent.putExtra("pokemon_name", pokemon.getName());
+            intent.putExtra("pokemon_image_url", pokemon.getImageUrl());
+
+            // Iniciar la nueva actividad
+            holder.itemView.getContext().startActivity(intent);
+        });
     }
+
 
     @Override
     public int getItemCount() {
