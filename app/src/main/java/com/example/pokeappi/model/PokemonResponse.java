@@ -8,4 +8,9 @@ public class PokemonResponse {
     public List<Pokemon> getResults() {
         return results;
     }
+    private List<PokemonDetails> resultados;
+    public List<PokemonDetails> getResultados() {
+        return resultados;
+    }
+
 }

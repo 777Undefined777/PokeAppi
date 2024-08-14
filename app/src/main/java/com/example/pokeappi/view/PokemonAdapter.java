@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.pokeappi.R;
 import com.example.pokeappi.model.Pokemon;
+import com.example.pokeappi.model.PokemonDetails;
 import com.example.pokeappi.presenter.PokemonPresenter;
 
 import java.util.List;
@@ -43,18 +44,26 @@ public class PokemonAdapter extends RecyclerView.Adapter<PokemonAdapter.PokemonV
                 .load(pokemon.getImageUrl())
                 .into(holder.pokemonImage);
 
-        // Configurar el clic en el ítem
         holder.itemView.setOnClickListener(v -> {
-            Intent intent = new Intent(holder.itemView.getContext(), DetailsPokeActivity.class);
-            intent.putExtra("pokemon_name", pokemon.getName());
-            intent.putExtra("pokemon_image_url", pokemon.getImageUrl());
+            // Obtener detalles del Pokémon
+            presenter.getPokemonDetails(pokemon.getName(), new PokemonPresenter.OnPokemonDetailsReceivedListener() {
+                @Override
+                public void onPokemonDetailsReceived(PokemonDetails pokemonDetails) {
+                    Intent intent = new Intent(holder.itemView.getContext(), DetailsPokeActivity.class);
+                    intent.putExtra("pokemon_name", pokemon.getName());
+                    intent.putExtra("pokemon_image_url", pokemon.getImageUrl());
+                    intent.putExtra("pokemon_details", pokemonDetails);  // Pasa los detalles aquí
+                    holder.itemView.getContext().startActivity(intent);
+                }
 
-            // Use the presenter to get details and then start the activity
-            presenter.getPokemonDetails(pokemon.getName());
-
-            holder.itemView.getContext().startActivity(intent);
+                @Override
+                public void onError(String message) {
+                    // Manejar el error si ocurre
+                }
+            });
         });
     }
+
 
     @Override
     public int getItemCount() {
