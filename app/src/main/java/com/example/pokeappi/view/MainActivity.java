@@ -1,24 +1,14 @@
 package com.example.pokeappi.view;
 
 import android.os.Bundle;
-
-
-import androidx.appcompat.app.AppCompatActivity;
-
-
-
 import android.widget.Toast;
-
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.pokeappi.R;
 import com.example.pokeappi.model.Pokemon;
 import com.example.pokeappi.presenter.PokemonPresenter;
-
 import java.util.List;
-
 
 public class MainActivity extends AppCompatActivity implements PokemonView {
 
@@ -33,17 +23,16 @@ public class MainActivity extends AppCompatActivity implements PokemonView {
 
         recyclerView = findViewById(R.id.recycler_view);
 
-        // Configura el GridLayoutManager con 3 columnas
+        // Configura el GridLayoutManager con 2 columnas
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
         presenter = new PokemonPresenter(this);
         presenter.getPokemonData();
     }
 
-
     @Override
     public void showPokemonList(List<Pokemon> pokemonList) {
-        adapter = new PokemonAdapter(pokemonList);
+        adapter = new PokemonAdapter(pokemonList, presenter);  // Pass the presenter here
         recyclerView.setAdapter(adapter);
     }
 

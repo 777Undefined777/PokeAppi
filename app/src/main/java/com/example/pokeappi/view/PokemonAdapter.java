@@ -13,15 +13,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.pokeappi.R;
 import com.example.pokeappi.model.Pokemon;
+import com.example.pokeappi.presenter.PokemonPresenter;
 
 import java.util.List;
 
 public class PokemonAdapter extends RecyclerView.Adapter<PokemonAdapter.PokemonViewHolder> {
 
     private List<Pokemon> pokemonList;
+    private PokemonPresenter presenter;
 
-    public PokemonAdapter(List<Pokemon> pokemonList) {
+    public PokemonAdapter(List<Pokemon> pokemonList, PokemonPresenter presenter) {
         this.pokemonList = pokemonList;
+        this.presenter = presenter;
     }
 
     @NonNull
@@ -42,18 +45,16 @@ public class PokemonAdapter extends RecyclerView.Adapter<PokemonAdapter.PokemonV
 
         // Configurar el clic en el ítem
         holder.itemView.setOnClickListener(v -> {
-            // Crear un Intent para abrir DetailsPokeActivity
             Intent intent = new Intent(holder.itemView.getContext(), DetailsPokeActivity.class);
-
-            // Puedes pasar datos adicionales sobre el Pokémon seleccionado
             intent.putExtra("pokemon_name", pokemon.getName());
             intent.putExtra("pokemon_image_url", pokemon.getImageUrl());
 
-            // Iniciar la nueva actividad
+            // Use the presenter to get details and then start the activity
+            presenter.getPokemonDetails(pokemon.getName());
+
             holder.itemView.getContext().startActivity(intent);
         });
     }
-
 
     @Override
     public int getItemCount() {
