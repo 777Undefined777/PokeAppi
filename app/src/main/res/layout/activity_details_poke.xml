@@ -32,4 +32,27 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:textSize="18sp"
         android:paddingTop="16dp" />
+
+    <ImageView
+        android:id="@+id/favorites_xl"
+        android:layout_width="19dp"
+        android:layout_height="22dp"
+        android:layout_marginTop="92dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/details_pokemon_image"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_favoritos" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="104dp"
+        android:layout_height="43dp"
+        android:gravity="center"
+        android:text="añadir a favoritos"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/details_pokemon_image"
+        app:layout_constraintTop_toBottomOf="@+id/favorites_xl" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
