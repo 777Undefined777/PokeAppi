@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.widget.Toast;
 
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -31,11 +32,14 @@ public class MainActivity extends AppCompatActivity implements PokemonView {
         setContentView(R.layout.activity_main);
 
         recyclerView = findViewById(R.id.recycler_view);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        // Configura el GridLayoutManager con 3 columnas
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
         presenter = new PokemonPresenter(this);
         presenter.getPokemonData();
     }
+
 
     @Override
     public void showPokemonList(List<Pokemon> pokemonList) {
