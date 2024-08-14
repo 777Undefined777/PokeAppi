@@ -4,8 +4,18 @@ import java.io.Serializable;
 import java.util.List;
 
 public class PokemonDetails implements Serializable {
+    private String name;  // Agrega esta propiedad
     private Sprites sprites;
     private List<Stat> stats;
+
+    // Constructor para inicializar el nombre
+    public PokemonDetails(String name) {
+        this.name = name;
+    }
+
+    public String getName() {  // Agrega este método
+        return name;
+    }
 
     public Sprites getSprites() {
         return sprites;

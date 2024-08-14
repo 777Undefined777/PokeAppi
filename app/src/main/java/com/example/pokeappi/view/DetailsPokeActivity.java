@@ -15,6 +15,10 @@ import com.example.pokeappi.R;
 import com.example.pokeappi.model.PokemonDetails;
 import com.example.pokeappi.view.FavoritePokeActivity;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DetailsPokeActivity extends AppCompatActivity {
 
@@ -55,19 +59,35 @@ public class DetailsPokeActivity extends AppCompatActivity {
         favoriteImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Guardar los datos en SharedPreferences
+                // Obtener SharedPreferences
                 SharedPreferences sharedPreferences = getSharedPreferences("PokeAppiPrefs", MODE_PRIVATE);
-                String pokemonName = sharedPreferences.getString("pokemon_name", "Unknown");
-                String pokemonImageUrl = sharedPreferences.getString("pokemon_image_url", "");
-                String pokemonDetailsJson = sharedPreferences.getString("pokemon_details", "");
+                SharedPreferences.Editor editor = sharedPreferences.edit();
 
+                // Recuperar la lista existente de Pokémon favoritos
                 Gson gson = new Gson();
-                PokemonDetails pokemonDetails = gson.fromJson(pokemonDetailsJson, PokemonDetails.class);
+                String pokemonListJson = sharedPreferences.getString("pokemon_list", "");
+                List<PokemonDetails> pokemonList;
+
+                if (!pokemonListJson.isEmpty()) {
+                    pokemonList = gson.fromJson(pokemonListJson, new TypeToken<List<PokemonDetails>>(){}.getType());
+                } else {
+                    pokemonList = new ArrayList<>();
+                }
+
+                // Añadir el nuevo Pokémon a la lista
+                pokemonList.add(pokemonDetails);
+
+                // Guardar la lista actualizada en SharedPreferences
+                String updatedPokemonListJson = gson.toJson(pokemonList);
+                editor.putString("pokemon_list", updatedPokemonListJson);
+                editor.apply();
 
                 // Iniciar la nueva actividad
                 Intent intent = new Intent(DetailsPokeActivity.this, FavoritePokeActivity.class);
                 startActivity(intent);
             }
         });
+
+
     }
 }

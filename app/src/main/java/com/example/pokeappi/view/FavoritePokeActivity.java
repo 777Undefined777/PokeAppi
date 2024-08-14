@@ -14,6 +14,10 @@ import com.bumptech.glide.Glide;
 import com.example.pokeappi.R;
 import com.example.pokeappi.model.PokemonDetails;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class FavoritePokeActivity extends AppCompatActivity {
 
@@ -29,32 +33,36 @@ public class FavoritePokeActivity extends AppCompatActivity {
 
         // Recuperar los datos de SharedPreferences
         SharedPreferences sharedPreferences = getSharedPreferences("PokeAppiPrefs", MODE_PRIVATE);
-        String pokemonName = sharedPreferences.getString("pokemon_name", "Unknown");
-        String pokemonImageUrl = sharedPreferences.getString("pokemon_image_url", "");
-        String pokemonDetailsJson = sharedPreferences.getString("pokemon_details", "");
-
         Gson gson = new Gson();
-        PokemonDetails pokemonDetails = gson.fromJson(pokemonDetailsJson, PokemonDetails.class);
+        String pokemonListJson = sharedPreferences.getString("pokemon_list", "");
 
-        // Mostrar los datos en la UI
+        List<PokemonDetails> pokemonList;
+        if (!pokemonListJson.isEmpty()) {
+            pokemonList = gson.fromJson(pokemonListJson, new TypeToken<List<PokemonDetails>>(){}.getType());
+        } else {
+            pokemonList = new ArrayList<>();
+        }
+
+        // Mostrar los datos en la UI (esto es solo un ejemplo; puedes usar un RecyclerView para una mejor presentación)
         TextView nameTextView = findViewById(R.id.favorite_pokemon_name);
         ImageView imageView = findViewById(R.id.favorite_pokemon_image);
         TextView statsTextView = findViewById(R.id.favorite_pokemon_stats);
 
-        nameTextView.setText(pokemonName);
-        Glide.with(this).load(pokemonImageUrl).into(imageView);
+        StringBuilder allPokemonNames = new StringBuilder();
+        StringBuilder allPokemonStats = new StringBuilder();
 
-        if (pokemonDetails != null && pokemonDetails.getStats() != null) {
-            StringBuilder statsBuilder = new StringBuilder();
-            for (PokemonDetails.Stat stat : pokemonDetails.getStats()) {
-                statsBuilder.append(stat.getStat().getName())
+        for (PokemonDetails pokemon : pokemonList) {
+            allPokemonNames.append(pokemon.getName()).append("\n");
+            for (PokemonDetails.Stat stat : pokemon.getStats()) {
+                allPokemonStats.append(stat.getStat().getName())
                         .append(": ")
                         .append(stat.getBaseStat())
                         .append("\n");
             }
-            statsTextView.setText(statsBuilder.toString());
-        } else {
-            statsTextView.setText("No stats available");
         }
+
+        nameTextView.setText(allPokemonNames.toString());
+        statsTextView.setText(allPokemonStats.toString());
     }
-}
+    }
+
