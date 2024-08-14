@@ -42,10 +42,9 @@ dependencies {
     androidTestImplementation(libs.espresso.core)
     implementation ("com.squareup.retrofit2:retrofit:2.9.0")
     implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
-<<<<<<< HEAD
-=======
+
 
     implementation ("com.github.bumptech.glide:glide:4.15.1")
     annotationProcessor ("com.github.bumptech.glide:compiler:4.15.1")
->>>>>>> 604e6cf (TRaida de imagenes con glide)
+
 }
