@@ -15,6 +15,13 @@
         android:theme="@style/Theme.PokeAppi"
         tools:targetApi="31">
         <activity
+            android:name=".view.FavoritePokeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.PokeFavoritesActivity"
+            android:exported="false"
+            android:theme="@style/Theme.PokeAppi" />
+        <activity
             android:name=".view.DetailsPokeActivity"
             android:exported="false" />
         <activity
