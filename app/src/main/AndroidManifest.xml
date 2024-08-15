@@ -18,8 +18,8 @@
             android:name=".view.FavoritePokeActivity"
             android:exported="false" />
         <activity
-            android:name=".view.PokeFavoritesActivity"
-            android:exported="false"
+            android:name=".view.CarouselAdapter"
+            android:exported="true"
             android:theme="@style/Theme.PokeAppi" />
         <activity
             android:name=".view.DetailsPokeActivity"
