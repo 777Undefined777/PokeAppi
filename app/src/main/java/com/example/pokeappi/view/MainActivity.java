@@ -1,8 +1,12 @@
 package com.example.pokeappi.view;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -11,8 +15,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.pokeappi.R;
 import com.example.pokeappi.model.Pokemon;
+import com.example.pokeappi.model.PokemonDetails;
 import com.example.pokeappi.presenter.PokemonPresenter;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements PokemonView {
@@ -25,6 +33,7 @@ public class MainActivity extends AppCompatActivity implements PokemonView {
     private Handler handler;
     private Runnable runnable;
     private int currentPosition = 0;
+    private ImageView favo_img;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +42,19 @@ public class MainActivity extends AppCompatActivity implements PokemonView {
 
         recyclerView = findViewById(R.id.recycler_view);
         carouselRecyclerView = findViewById(R.id.carousel_recycler_view);
+        favo_img = findViewById(R.id.favo_imgv);
+
+        favo_img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Obtener SharedPreferences
+
+
+                // Iniciar la nueva actividad
+                Intent intent = new Intent(MainActivity.this, FavoritePokeActivity.class);
+                startActivity(intent);
+            }
+        });
 
         // Configura el GridLayoutManager con 2 columnas
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
